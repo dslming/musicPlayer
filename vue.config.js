@@ -4,12 +4,14 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+const isProduction = process.env.NODE_ENV === 'production'
 const version = "1.0.0"
 const Timestamp = new Date().getTime();
+console.error("version:", version, "isProduction:", isProduction);
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: './',
+  publicPath: isProduction ? "musicPlayer" : './',
 
   chainWebpack(config) {
     config.resolve.alias
