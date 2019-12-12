@@ -11,7 +11,7 @@ console.error("version:", version, "isProduction:", isProduction);
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: isProduction ? "musicPlayer" : './',
+  publicPath: './',
 
   chainWebpack(config) {
     config.resolve.alias
