@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
-import Player from '@/page/player/Player.vue'
+// import Player from '@/page/player/Player.vue'
+import Music from '@/views/music/music.vue'
 Vue.use(VueRouter)
 
 // const Player = (resolve) => {
@@ -14,7 +15,7 @@ const routes = [
   {
     path: '/',
     name: 'Player',
-    component: Player
+    component: Music
   }
 ]
 
