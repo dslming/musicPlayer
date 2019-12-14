@@ -1,4 +1,4 @@
-let THREE = window.THREE
+const THREE = (window as any).THREE
 
 var urls = [
   'https://zultanzul.github.io/ThreeJS-Robot/skybox/sky_pos_x.jpg',
@@ -10,21 +10,22 @@ var urls = [
 ];
 
 class SkyBox {
+  mesh: any;
   constructor() {
-    var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+    var reflectionCube = new THREE.CubeTextureLoader().load(urls);
     reflectionCube.format = THREE.RGBFormat;
-    
+
     var shader = THREE.ShaderLib["cube"];
     shader.uniforms["tCube"].value = reflectionCube;
-    
-    var material = new THREE.ShaderMaterial( {	
+
+    var material = new THREE.ShaderMaterial({
       fragmentShader: shader.fragmentShader,
       vertexShader: shader.vertexShader,
       uniforms: shader.uniforms,
       depthWrite: false,
-      side: THREE.BackSide		
+      side: THREE.BackSide
     })
-    this.mesh = new THREE.Mesh(new THREE.BoxGeometry( 5000, 5000, 5000 ), material );	
+    this.mesh = new THREE.Mesh(new THREE.BoxGeometry(5000, 5000, 5000), material);
   }
 }
 export default SkyBox

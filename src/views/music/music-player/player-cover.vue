@@ -35,15 +35,6 @@ export default {
       currentTrack: tracks[0]
     });
     this.playerMode.initAudio();
-    // this is optional (for preload covers)
-    for (let index = 0; index < this.playerMode.tracks.length; index++) {
-      const element = this.playerMode.tracks[index];
-      let link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = element.cover;
-      link.as = "image";
-      document.head.appendChild(link);
-    }
   }
 };
 </script>

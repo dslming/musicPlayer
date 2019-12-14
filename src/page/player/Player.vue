@@ -55,7 +55,7 @@
 <script>
 import Vue from "vue";
 import { Select, OptionGroup, Option } from "element-ui";
-import musicVisual from "@/3d/MusicVisual";
+// import musicVisual from "@/3d/MusicVisual";
 
 Vue.use(Select);
 Vue.use(OptionGroup);
@@ -165,12 +165,12 @@ export default {
   },
   created() {},
   mounted() {
-    musicVisual.lmaudio
-      .loadAudio("https://dslming.github.io/resources/audio/music.mp3")
-      .then(() => {});
-    musicVisual.lmaudio.addSubjectListener("process", pro => {
-      this.percent = pro;
-    });
+    // musicVisual.lmaudio
+    //   .loadAudio("https://dslming.github.io/resources/audio/music.mp3")
+    //   .then(() => {});
+    // musicVisual.lmaudio.addSubjectListener("process", pro => {
+    //   this.percent = pro;
+    // });
   }
 };
 </script>

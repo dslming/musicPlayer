@@ -5,34 +5,75 @@
 </template>
 
 <script>
-import musicVisual from "@/3d/MusicVisual";
-import common from "./Common";
-window.lmthree = musicVisual;
+import logic from "../dist/001-universe/logic/Logic";
+window.lm = logic;
 let that = null;
 export default {
-  mounted() {
-    that = this;
-    let options = {
-      renderOption: {
-        canvasFatherId: "canvasFather"
+  props: ["type"],
+  computed: {
+    playing() {
+      return logic.audio.subject.playing;
+    }
+  },
+  watch: {
+    type: {
+      handler: function(v) {
+        if (v == "min") {
+          logic.stage.resize();
+          if (logic.audio.subject.playing) {
+            logic.stage.run();
+          } else {
+            logic.stage.stop();
+          }
+          // that = this;
+          // let options = {
+          //   renderOption: {
+          //     canvasFatherId: "canvasFather"
+          //   }
+          // };
+          // common.init(options);
+          // common.resize();
+          // musicVisual.startAnimationFrame();
+          // console.error(123);
+        } else {
+          logic.stage.stop();
+          // musicVisual.stopAnimationFrame();
+          // this.isShow = false;
+        }
       }
-    };
-    common.init(options);
-    musicVisual.registAnimationFrame(this.loop);
+    },
+    playing: {
+      handler: function(v) {
+        if (v) {
+          logic.stage.run();
+        } else {
+          logic.stage.stop();
+        }
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    logic.initStage();
+    // musicVisual.registAnimationFrame(this.loop);
+    // musicVisual.startAnimationFrame();
   },
   destroyed() {
-    common.uninstall();
+    // common.uninstall();
   },
   methods: {
-    loop() {
-      common.rendering();
-      if (musicVisual.lmaudio.subject.playing) {
-        let degree = musicVisual.lmaudio.getAverageFrequency();
-        common.object.duststream.speed(parseInt(degree));
-        common.object.robot.blinkLoop();
-        common.object.robot.idleAnimation();
-      }
-    }
+    // loop() {
+    //   common.rendering();
+    //   let degree = musicVisual.lmaudio.getAverageFrequency();
+    //   common.object.duststream.speed(parseInt(degree));
+    //   common.object.robot.blinkLoop();
+    //   common.object.robot.idleAnimation();
+    // }
+  },
+  data() {
+    return {
+      logic: logic
+    };
   }
 };
 </script>
@@ -42,7 +83,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  #container {
+  #canvasFather {
     position: absolute;
     width: 100%;
     height: 100%;

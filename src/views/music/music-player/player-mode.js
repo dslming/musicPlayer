@@ -1,18 +1,21 @@
+import LMAudio from '@/3d/dist/PlayerAudio/PlayerAudio'
 class PlayerMode {
   constructor() {
     this.type = "normal"
     this.currentTrack = null
-    this.isTimerPlaying = null
+    // 播放状态
+    this.isTimerPlaying = false
     this.transitionName = ""
     this.currentTrackIndex = -1
-    this.audio = new Audio();
+    // this.audio = new Audio();
+    this.audio = LMAudio//new LMAudio()
     this.tracks = [
       {
         index: 0,
         name: "MekanÃ„Â±n Sahibi",
         artist: "Norm Ender",
         cover: "./music/1.jpg",
-        source: "./music/1.mp3",
+        source: "/music/1.mp3",
         url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
         favorited: false
       },
@@ -134,16 +137,17 @@ class PlayerMode {
   }
 
   initAudio() {
-    this.audio.src = this.currentTrack.source;
-    this.audio.ontimeupdate = () => {
-      this.generateTime();
-    };
-    this.audio.onloadedmetadata = () => {
-      this.generateTime();
-    };
-    this.audio.onended = () => {
-      this.isTimerPlaying = true;
-    };
+    this.audio.loadAudio(this.currentTrack.source)
+    // this.audio.src = this.currentTrack.source;
+    // this.audio.ontimeupdate = () => {
+    //   this.generateTime();
+    // };
+    // this.audio.onloadedmetadata = () => {
+    //   this.generateTime();
+    // };
+    // this.audio.onended = () => {
+    //   this.isTimerPlaying = true;
+    // };
   }
 
   generateTime() {

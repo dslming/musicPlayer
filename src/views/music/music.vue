@@ -1,23 +1,20 @@
 <template>
   <div class="music">
-    <div class="changeBtn" :class="myclass" @click="changeSize"></div>
-    <MusicPlayer />
+    <div class="changeBtn" @click="changeSize"></div>
+    <MusicPlayer :type="type" />
+    <MusicVisiual :type="type" />
   </div>
 </template>
 
 <script>
 import MusicPlayer from "./music-player/player";
-import playerMode from "./music-player/player-mode.js";
+import MusicVisiual from "./music-visiual/visiual";
 
 export default {
-  components: { MusicPlayer },
-  myclass() {
-    return this.playerMode.type == "min" ? "btnColor" : "";
-  },
+  components: { MusicPlayer, MusicVisiual },
   data() {
     return {
-      type: "normal",
-      playerMode: playerMode
+      type: "normal"
     };
   },
   methods: {
@@ -27,16 +24,6 @@ export default {
       } else {
         this.type = "normal";
       }
-      this.playerMode.setData({
-        type: this.type
-      });
-      // document.querySelector(".player-cover").classList.add("player-cover-min");
-      // document
-      //   .querySelector(".player-progress")
-      //   .classList.add("player-progress-min");
-      // document
-      //   .querySelector(".player-controls")
-      //   .classList.add("player-controls");
     }
   },
   created() {}

@@ -11,11 +11,31 @@
 import PlayerTop from "./player-top";
 import PlayerProgress from "./player-progress";
 import playerMode from "./player-mode";
+
+// import musicPlayerMode from "@/MusicPlayerMode.js";
 export default {
+  props: ["type"],
   components: { PlayerTop, PlayerProgress },
   computed: {
     myclass() {
       return this.playerMode.type == "min" ? "player-min" : "";
+    }
+  },
+  watch: {
+    type: {
+      handler: function(v) {
+        this.playerMode.setData({
+          type: v
+        });
+      }
+    },
+    playerMode: {
+      handler: function(v) {
+        // musicPlayerMode.setData({
+        //   isPlaying: v.isTimerPlaying
+        // });
+      },
+      deep: true
     }
   },
   data() {

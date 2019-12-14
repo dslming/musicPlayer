@@ -135,8 +135,8 @@ export default {
       this.playerMode.resetPlayer();
     },
     play() {
-      let { audio } = this.playerMode.getData();
-      if (audio.paused) {
+      let { audio, isTimerPlaying } = this.playerMode.getData();
+      if (isTimerPlaying == false) {
         audio.play();
         this.playerMode.setData({
           isTimerPlaying: true
