@@ -29,6 +29,15 @@ class PlayerMode {
         source: "/music/2.mp3",
         url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
         favorited: false
+      },
+      {
+        index: 2,
+        name: "3",
+        artist: "3",
+        cover: "./music/2.jpg",
+        source: "https://dslming.github.io/resources/audio/music.mp3",
+        url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
+        favorited: false
       }
       // {
       //   name: "Everybody Knows",
