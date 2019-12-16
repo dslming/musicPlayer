@@ -50,7 +50,7 @@ class PlayerAudio {
         method: 'get',
         url: url,
         responseType: 'arraybuffer',
-        timeout: 50000,
+        timeout: 120000,
       }).then((v: any) => {
         // 重置状态
         that.offset = 0
