@@ -11,115 +11,78 @@ class PlayerMode {
     this.currentTrackIndex = -1
     // this.audio = new Audio();
     this.audio = LMAudio//new LMAudio()
-    this.tracks = [
+    let baseUrl = "https://dslming.github.io/resources/audio/"
+    let tempList = [
       {
         index: 0,
-        name: "MekanÃ„Â±n Sahibi",
-        artist: "Norm Ender",
-        cover: "./music/1.jpg",
-        source: "/music/1.mp3",
-        url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
+        name: "1, 2, 3! (Japanese Ver.)",
+        artist: "胜利",
+        cover: "0.jpg",
+        source: "0.mp3",
         favorited: false
       },
       {
         index: 1,
-        name: "2",
-        artist: "2",
-        cover: "./music/2.jpg",
-        source: "/music/2.mp3",
-        url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
+        name: "Hi Hi Bye Bye",
+        artist: "王心凌",
+        cover: "1.jpg",
+        source: "1.mp3",
         favorited: false
       },
       {
         index: 2,
-        name: "3",
-        artist: "3",
-        cover: "./music/2.jpg",
-        source: "https://dslming.github.io/resources/audio/music.mp3",
-        url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
+        name: "热雪",
+        artist: "魏晨",
+        cover: "2.jpg",
+        source: "2.mp3",
+        favorited: false
+      },
+      {
+        index: 3,
+        name: "人生浪费指南",
+        artist: "夏日入侵企画",
+        cover: "3.jpg",
+        source: "3.mp3",
+        favorited: false
+      },
+      {
+        index: 4,
+        name: "bad guy",
+        artist: "Billie Eilish",
+        cover: "4.jpg",
+        source: "4.mp3",
+        favorited: false
+      },
+      {
+        index: 5,
+        name: "2002",
+        artist: "J.Fla",
+        cover: "5.jpg",
+        source: "5.mp3",
+        favorited: false
+      },
+      {
+        index: 6,
+        name: "Monsters",
+        artist: "Katie Sky",
+        cover: "6.jpg",
+        source: "6.mp3",
+        favorited: false
+      },
+      {
+        index: 7,
+        name: "Do It Again",
+        artist: "Madeline Juno",
+        cover: "7.jpg",
+        source: "7.mp3",
         favorited: false
       }
-      // {
-      //   name: "Everybody Knows",
-      //   artist: "Leonard Cohen",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/2.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.mp3",
-      //   url: "https://www.youtube.com/watch?v=Lin-a2lTelg",
-      //   favorited: true
-      // },
-      // {
-      //   name: "Extreme Ways",
-      //   artist: "Moby",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/3.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.mp3",
-      //   url: "https://www.youtube.com/watch?v=ICjyAe9S54c",
-      //   favorited: false
-      // },
-      // {
-      //   name: "Butterflies",
-      //   artist: "Sia",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/4.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.mp3",
-      //   url: "https://www.youtube.com/watch?v=kYgGwWYOd9Y",
-      //   favorited: false
-      // },
-      // {
-      //   name: "The Final Victory",
-      //   artist: "Haggard",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/5.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.mp3",
-      //   url: "https://www.youtube.com/watch?v=0WlpALnQdN8",
-      //   favorited: true
-      // },
-      // {
-      //   name: "Genius ft. Sia, Diplo, Labrinth",
-      //   artist: "LSD",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/6.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.mp3",
-      //   url: "https://www.youtube.com/watch?v=HhoATZ1Imtw",
-      //   favorited: false
-      // },
-      // {
-      //   name: "The Comeback Kid",
-      //   artist: "Lindi Ortega",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/7.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.mp3",
-      //   url: "https://www.youtube.com/watch?v=me6aoX0wCV8",
-      //   favorited: true
-      // },
-      // {
-      //   name: "Overdose",
-      //   artist: "Grandson",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/8.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.mp3",
-      //   url: "https://www.youtube.com/watch?v=00-Rl3Jlx-o",
-      //   favorited: false
-      // },
-      // {
-      //   name: "Rag'n'Bone Man",
-      //   artist: "Human",
-      //   cover:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/9.jpg",
-      //   source:
-      //     "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.mp3",
-      //   url: "https://www.youtube.com/watch?v=L3wKzyIN1yk",
-      //   favorited: false
-      // }
     ]
+    for (let i = 0; i < tempList.length; i++) {
+      tempList[i].source = baseUrl + tempList[i].source
+      tempList[i].cover = baseUrl + tempList[i].cover
+    }
+    this.tracks = tempList
   }
 
   setData(obj) {

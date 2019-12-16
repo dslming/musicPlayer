@@ -46,7 +46,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .active {
-  background-color: red !important;
+  background-color: #e96183 !important;
 }
 .player-progress {
   transition: all 0s ease;
