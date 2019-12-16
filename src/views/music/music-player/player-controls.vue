@@ -138,9 +138,9 @@ export default {
     play() {
       let { audio, isTimerPlaying } = this.playerMode.getData();
       if (isTimerPlaying == false) {
-        audio.play();
+        let ret = audio.play();
         this.playerMode.setData({
-          isTimerPlaying: true
+          isTimerPlaying: ret
         });
       } else {
         audio.pause();

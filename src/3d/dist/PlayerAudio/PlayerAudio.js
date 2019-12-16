@@ -24,12 +24,7 @@ class PlayerAudio {
         }
     }
     loadAudio(url) {
-        // 重置状态
         let that = this;
-        this.offset = 0;
-        this.startTime = 0;
-        this.source = null;
-        this.buffer = null;
         // 获取新的音乐
         let axios = window.axios;
         return new Promise((resolve, reject) => {
@@ -37,8 +32,14 @@ class PlayerAudio {
                 method: 'get',
                 url: url,
                 responseType: 'arraybuffer',
-                timeout: 5000,
+                timeout: 50000,
             }).then((v) => {
+                // 重置状态
+                that.offset = 0;
+                that.startTime = 0;
+                that.source = null;
+                that.buffer = null;
+                that.subject.isReadyPlay = false;
                 that.context.decodeAudioData(v.data, buffer => {
                     that.buffer = buffer;
                     that.subject.isReadyPlay = true;
@@ -95,7 +96,10 @@ class PlayerAudio {
         that._setupAudioNodes();
     }
     play() {
+        let ret = false;
         if (this.subject.isReadyPlay) {
+            this.pause();
+            ret = true;
             this.source = this.context.createBufferSource();
             this.source.buffer = this.buffer;
             this.source.loop = this.loop;
@@ -109,6 +113,7 @@ class PlayerAudio {
             this.subject.playing = false;
             alert('Audio is not ready');
         }
+        return ret;
     }
     pause() {
         if (this.subject.playing === true) {

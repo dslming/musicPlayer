@@ -7,7 +7,7 @@
       </div>
       <div class="progress__duration">{{ duration }}</div>
     </div>
-    <div class="progress__bar" @click="clickProgress">
+    <div class="progress__bar" @click="clickProgress" :class="{active: isReadyPlay}">
       <div class="progress__current" :style="{ width : barWidth }"></div>
     </div>
     <div class="progress__time">{{ currentTime }}</div>
@@ -21,6 +21,9 @@ export default {
   computed: {
     myclass() {
       return this.playerMode.type == "min" ? "player-progress-min" : "";
+    },
+    isReadyPlay() {
+      return this.playerMode.audio.subject.isReadyPlay;
     }
   },
   data() {
@@ -42,6 +45,9 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.active {
+  background-color: red !important;
+}
 .player-progress {
   transition: all 0s ease;
   width: 100%;
