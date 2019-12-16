@@ -11,7 +11,7 @@ class PlayerMode {
     this.currentTrackIndex = -1
     // this.audio = new Audio();
     this.audio = LMAudio//new LMAudio()
-    let baseUrl = "https://dslming.github.io/resources/audio/"
+    let baseUrl = "https://dslming.com/resources/audio/"
     let tempList = [
       {
         index: 0,

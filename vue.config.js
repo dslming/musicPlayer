@@ -22,5 +22,17 @@ module.exports = {
       filename: `[name].${version}.${Timestamp}.js`,
       chunkFilename: `[name].${version}.${Timestamp}.js`
     }
-  }
+  },
+  devServer: {
+    host: '0.0.0.0',
+    open: true,
+    port: 9999,
+    proxy: {
+      '/resources': {
+        target: 'https://dslming.com/',
+        secure: false,
+        changeOrigin: true
+      }
+    }
+  },
 }
