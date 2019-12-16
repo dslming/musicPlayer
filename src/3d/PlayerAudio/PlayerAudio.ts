@@ -1,5 +1,6 @@
 // https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#OfflineAudioContext-section
-class LMAudio {
+
+class PlayerAudio {
   subject: {
     isReadyPlay: boolean; // 音频加载完成
     process: number; playing: boolean;
@@ -38,17 +39,47 @@ class LMAudio {
     }
   }
 
+  loadAudio(url: any) {
+    // 重置状态
+    let that = this;
+    this.offset = 0
+    this.startTime = 0
+    this.source = null
+    this.buffer = null
+
+    // 获取新的音乐
+    let axios = (window as any).axios
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'get',
+        url: url,
+        responseType: 'arraybuffer',
+        timeout: 5000,
+      }).then((v: any) => {
+        that.context.decodeAudioData(v.data, buffer => {
+          that.buffer = buffer
+          that.subject.isReadyPlay = true
+          console.error("over");
+          resolve();
+        });
+      })
+    })
+  }
   // 网络加载音乐
-  loadAudio(filePath: any) {
+  loadAudio_old(filePath: any) {
     let that = this;
     this.url = filePath;
+    this.offset = 0
+    this.startTime = 0
+    this.source = null
+    this.buffer = null
     var request = new XMLHttpRequest();
     request.open('GET', filePath, true);
     request.responseType = 'arraybuffer';
     request.send();
     return new Promise((resolve, reject) => {
       request.onload = () => {
-        console.log(request.response);
+        // console.log(request.response);
         that.context.decodeAudioData(request.response, buffer => {
           that.buffer = buffer
         });
@@ -60,6 +91,7 @@ class LMAudio {
         that.subject.process = Number.parseInt(p)
         if (that.subject.process === 100) {
           that.subject.isReadyPlay = true
+          console.error(100);
         }
       })
     });
@@ -170,4 +202,4 @@ class LMAudio {
   }
 }
 
-export default new LMAudio()
+export default new PlayerAudio()

@@ -1,6 +1,8 @@
 import LMAudio from '@/3d/dist/PlayerAudio/PlayerAudio'
+let that = null
 class PlayerMode {
   constructor() {
+    that = this
     this.type = "normal"
     this.currentTrack = null
     // 播放状态
@@ -24,7 +26,7 @@ class PlayerMode {
         name: "2",
         artist: "2",
         cover: "./music/2.jpg",
-        source: "./music/2.mp3",
+        source: "/music/2.mp3",
         url: "https://www.youtube.com/watch?v=z3wAjJXbYzA",
         favorited: false
       }
@@ -177,15 +179,20 @@ class PlayerMode {
   resetPlayer() {
     // this.barWidth = 0;
     // this.circleLeft = 0;
-    this.audio.currentTime = 0;
-    this.audio.src = this.currentTrack.source;
-    setTimeout(() => {
-      if (this.isTimerPlaying) {
-        this.audio.play();
+    that.audio.currentTime = 0;
+    // that.audio.src = that.currentTrack.source;
+    that.audio.pause()
+    // console.error(that.currentTrack.source);
+    that.audio.loadAudio(that.currentTrack.source).then(() => {
+      if (that.isTimerPlaying) {
+        that.audio.play();
       } else {
-        this.audio.pause();
+        that.audio.pause();
       }
-    }, 300);
+    })
+    // setTimeout(() => {
+
+    // }, 1000);
   }
 }
 

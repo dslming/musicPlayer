@@ -120,7 +120,8 @@ export default {
       this.playerMode.setData({
         transitionName: "scale-out"
       });
-      let { currentTrackIndex, tracks } = this.playerMode.getData();
+      let { currentTrackIndex, tracks, audio } = this.playerMode.getData();
+      audio.pause();
       if (currentTrackIndex < tracks.length - 1) {
         currentTrackIndex++;
       } else {
