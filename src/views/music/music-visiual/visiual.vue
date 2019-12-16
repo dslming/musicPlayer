@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       isShow: false,
-      currentComponent: "universe"
+      currentComponent: "wind"
     };
   },
   methods: {},
