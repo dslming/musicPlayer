@@ -30,7 +30,7 @@ export default class Stage {
         this.initCamera();
         window.addEventListener("resize", this.handleResize);
         this.handleResize();
-        this.initControl();
+        // this.initControl()
         this.initStats();
     }
     handleResize() {
@@ -46,30 +46,11 @@ export default class Stage {
         that.camera.updateProjectionMatrix();
     }
     initLight() {
-        let hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5);
+        let hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 2.5);
         hemisphereLight.name = 'hemisphereLight';
         hemisphereLight.position.set(0, 0, 0);
-        let shadowLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        shadowLight.name = 'shadowLight';
-        shadowLight.position.set(100, 100, 100);
-        shadowLight.castShadow = true;
-        shadowLight.shadow.camera.left = -400; // 产生阴影距离位置的最左边位置
-        shadowLight.shadow.camera.right = 400;
-        shadowLight.shadow.camera.top = 400;
-        shadowLight.shadow.camera.bottom = -400;
-        shadowLight.shadow.camera.near = 1; // 产生阴影的最近距离
-        shadowLight.shadow.camera.far = 1000; // 产生阴影的最远距离
-        shadowLight.shadow.mapSize.width = 2048;
-        shadowLight.shadow.mapSize.height = 2048;
-        let backLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        backLight.position.set(-100, 100, 100);
-        backLight.castShadow = true;
-        backLight.shadowDarkness = 0.1;
-        backLight.shadowMapWidth = 1024;
-        backLight.name = 'backLight';
         this.scene.add(hemisphereLight);
-        this.scene.add(shadowLight);
-        this.scene.add(backLight);
+        this.renderer.setClearColor('#6ecccc', 1);
     }
     initCamera() {
         this.camera = new THREE.PerspectiveCamera(45, this.containerEle.clientWidth / this.containerEle.clientHeight, 10, 2000);
@@ -79,35 +60,8 @@ export default class Stage {
     }
     initControl() {
         this.control = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-        this.control.autoRotate = true;
+        this.control.autoRotate = false;
         this.control.enabled = true;
-    }
-    addMeshObject() {
-        if (this.initFlag) {
-            return this.initFlag;
-        }
-        this.initFlag = true;
-        // let { bottleMesh } = dao.getData()
-        // this.uvRender.markArea((texture: any) => {
-        //   bottleMesh.traverse((child: any) => {
-        //     if (child.isMesh) {
-        //       child.material.map = texture;
-        //       child.material.map.needsUpdate = true;
-        //     }
-        //   });
-        // })
-        // this.scene.add(bottleMesh)
-        return this.initFlag;
-    }
-    removeMeshObject() {
-        let group = this.scene.children[3];
-        group.traverse(function (obj) {
-            if (obj.type === 'Mesh') {
-                obj.geometry.dispose();
-                obj.material.dispose();
-            }
-        });
-        this.scene.remove(group);
     }
     findMesh(objcet) {
         if (objcet.children) {
@@ -132,7 +86,7 @@ export default class Stage {
     run() {
         that.animateId = requestAnimationFrame(that.run);
         that.renderer.render(that.scene, that.camera);
-        that.control.update();
+        // that.control.update()
         that.stats.update();
         that.loopCB && that.loopCB();
     }
@@ -144,6 +98,5 @@ export default class Stage {
     }
     resize() {
         this.handleResize();
-        console.error(1234);
     }
 }

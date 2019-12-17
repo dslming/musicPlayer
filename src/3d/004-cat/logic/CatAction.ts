@@ -1,39 +1,14 @@
-import Tool from '@/3d/THREEJS/Tool'
+import Tool from '../../common/Tool'
+const TweenMax = (window as any).TweenMax
 
-let TweenMax = window.TweenMax
-class CatJSON {
-  constructor() {
-    this.cat = null
-    this.t = 0
-    this.timer = 0
-    this.animation = false
-  }
-  destroyed() {
-    clearInterval(this.timer)
-  }
-
-  setAnimotion(falg) {
-    this.animation = falg
-  }
-
-  init(_cat) {
-    if (!_cat) return
-
-    this.cat = _cat
-    let that = this
-    this.timer = setInterval(() => {
-      that.blink()
-      that.updataHead()
-    }, 2000);
-  }
-
-  blink() {
-    if (!this.cat) return
-    let head = Tool.findMesh(this.cat, 'head')
+class CatAction {
+  static t: any = 0
+  static blink(catMesh: any) {
+    let head = Tool.findMesh(catMesh, 'head')
     let rightEye = Tool.findMesh(head, 'rightEye')
     let leftEye = Tool.findMesh(head, 'leftEye')
 
-    switch (this.randomNum(1, 3)) {
+    switch (CatAction.randomNum(1, 3)) {
       case 1:
         TweenMax.to(rightEye.scale, 0.07, { y: 0, 'yoyo': true, 'repeat': 1 })
         break
@@ -49,12 +24,11 @@ class CatJSON {
     }
   }
 
-  updateTail(data) {
-    if (!this.cat || !this.animation) return
+  static updateTail(catMesh: any, data: any) {
     // 0.05
-    this.t += data
+    CatAction.t += data
     let tails = []
-    let p = Tool.findMesh(this.cat, 'tail')
+    let p = Tool.findMesh(catMesh, 'tail')
     // 已经事先知道是7节尾巴
     for (let i = 0; i < 7; i++) {
       let c = Tool.findMesh(p, `t${i}`)
@@ -69,19 +43,19 @@ class CatJSON {
     }
   }
 
-  updataHead() {
-    if (!this.cat || !this.animation) return
-    let head = Tool.findMesh(this.cat, 'head')
+  static updataHead(catMesh: any) {
+    let head = Tool.findMesh(catMesh, 'head')
     TweenMax.to(head.rotation, 1, { z: -0.5 })
     setTimeout(() => {
       TweenMax.to(head.rotation, 1, { z: 0.5 })
     }, 1000)
   }
 
-  randomNum(minNum, maxNum) {
+  static randomNum(minNum: any, maxNum: any) {
     switch (arguments.length) {
       case 1:
-        return parseInt(Math.random() * minNum + 1, 10);
+        let t: any = Math.random() * minNum + 1
+        return parseInt(t, 10);
         break;
       case 2:
         return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
@@ -92,4 +66,4 @@ class CatJSON {
     }
   }
 }
-export default CatJSON
+export default CatAction

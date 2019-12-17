@@ -1,71 +1,73 @@
 <template>
-  <div>
+  <div class="cat">
     <div id="canvasFather"></div>
+    <div class="name">
+      摇头小猫
+    </div>
   </div>
 </template>
 
 <script>
-import musicVisual from "@/3d/MusicVisual";
-import Tool from "@/3d/THREEJS/Tool";
-import Cat from "./CatJSON";
-import common from "./Common";
-window.lmthree = common;
-
-let that = null;
-let initFlag = false;
-let catMesh = null;
+import logic from "../dist/004-cat/logic/Logic";
 
 export default {
+  props: ["type"],
+  computed: {
+    playing() {
+      return logic.audio.subject.playing;
+    }
+  },
   data() {
-    return {
-      cat: new Cat(),
-      isInit: false
-    };
+    return {};
   },
   mounted() {
-    that = this;
-    that = this;
-    let options = {
-      renderOption: {
-        canvasFatherId: "canvasFather"
-      }
-    };
-    common.init(options);
-    common.load({ name: "cat.json" });
-    musicVisual.registAnimationFrame(this.loop, "cat");
+    logic.initStage();
   },
-  destroyed() {
-    musicVisual.stopAnimationFrame();
-    common.uninstall();
-    this.cat.destroyed();
-  },
-  methods: {
-    loop() {
-      common.rendering();
-      if (musicVisual.lmaudio.subject.playing) {
-        that.cat.setAnimotion(true);
-        let degree = musicVisual.lmaudio.getAverageFrequency();
-        catMesh = Tool.findMesh(common.scene, "cat");
-        if (catMesh && that.isInit === false) {
-          that.cat.init(catMesh);
-          that.isInit = true;
+  methods: {},
+  watch: {
+    type: {
+      handler: function(v) {
+        if (v == "min") {
+          logic.stage.resize();
+          if (logic.audio.subject.playing) {
+            logic.stage.run();
+          } else {
+            logic.stage.stop();
+          }
+        } else {
+          logic.stage.stop();
         }
-        if (that.isInit && catMesh) {
-          that.cat.updateTail(degree / 1000);
-        }
-      } else {
-        that.cat.setAnimotion(false);
       }
+    },
+    playing: {
+      handler: function(v) {
+        if (v) {
+          logic.stage.run();
+        } else {
+          logic.stage.stop();
+        }
+      },
+      deep: true
     }
   }
 };
 </script>
 
-<style>
-.el-select {
-  display: inline-block;
-  width: 80px;
-  opacity: 0.8;
-  position: relative;
+<style lang="scss">
+.name {
+  font-family: "china";
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  font-size: 40px;
+  color: #ddd;
+}
+.cat {
+  width: 100%;
+  height: 100%;
+  #canvasFather {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

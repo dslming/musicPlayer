@@ -19,9 +19,6 @@ export default {
     wind: resolve => {
       require(["@/3d/002-wind/wind"], resolve);
     },
-    light: resolve => {
-      require(["@/3d/003-light/light"], resolve);
-    },
     cat: resolve => {
       require(["@/3d/004-cat/Cat"], resolve);
     },
@@ -60,6 +57,10 @@ export default {
         {
           index: 1,
           name: "universe"
+        },
+        {
+          index: 2,
+          name: "cat"
         }
       ],
       currentIndex: 0,
