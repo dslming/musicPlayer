@@ -1,68 +1,72 @@
 <template>
-     <div>
-        <input v-if="showOffline" class="localFile" type="file" id="files" @change="fileImport" />
-        <div id="canvasFather"></div>
-     </div>
+  <div class="wave">
+    <div id="canvasFather"></div>
+    <div class="name">
+      浪里个浪
+    </div>
+  </div>
 </template>
 
 <script>
-import musicVisual from '@/3d/MusicVisual'
-import common from './Common'
-window.lmthree = common
+import logic from "../dist/006-wave/logic/Logic";
 
-let that = null
+let that = null;
 
 export default {
-  data() {
-    return {
-      showOffline: musicVisual.lmaudio.mode === 'dev' // 离线开发
+  props: ["type"],
+  computed: {
+    playing() {
+      return logic.audio.subject.playing;
     }
   },
   mounted() {
-    that = this
-    let options = {
-      renderOption: {
-        canvasFatherId: 'canvasFather'
-      }
-    }
-    common.init(options)
-    musicVisual.registAnimationFrame(this.loop,'wave')
+    logic.initStage();
   },
-  destroyed() {
-    musicVisual.stopAnimationFrame()
-    common.uninstall()
-  },
-  methods: {
-    loop() {
-      common.rendering()
-      if(musicVisual.lmaudio.subject.playing) {
-        let degree = musicVisual.lmaudio.getAverageFrequency()
-        common.drawWave(degree)
+  watch: {
+    type: {
+      handler: function(v) {
+        if (v == "min") {
+          logic.stage.resize();
+          if (logic.audio.subject.playing) {
+            logic.stage.run();
+          } else {
+            logic.stage.stop();
+          }
+        } else {
+          logic.stage.stop();
+        }
       }
     },
-    fileImport() {
-        var file = document.getElementById('files').files[0];
-        musicVisual.lmaudio.loadAudioLocal(file);
+    playing: {
+      handler: function(v) {
+        if (v) {
+          logic.stage.run();
+        } else {
+          logic.stage.stop();
+        }
+      },
+      deep: true
     }
   }
-}
+};
 </script>
 
-<style>
-#canvasFather {
-  background-color: #000;
-      background-image: radial-gradient(ellipse farthest-corner at center top, #003466 0%, #000000 80%);
-}
-
-.localFile {
+<style lang="scss">
+.name {
+  font-family: "china";
   position: absolute;
-  top: 10%;
+  bottom: 40px;
+  left: 30px;
+  font-size: 40px;
+  color: rgb(53, 154, 194);
 }
-
-.download {
-  position: absolute;
-  top: 10%;
-  right: 5%;
+.wave {
+  width: 100%;
+  height: 100%;
+  #canvasFather {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(204, 204, 204);
+  }
 }
-
 </style>

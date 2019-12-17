@@ -27,12 +27,6 @@ export default {
     },
     wave: resolve => {
       require(["@/3d/006-wave/wave"], resolve);
-    },
-    shader: resolve => {
-      require(["@/3d/007-shader/shader"], resolve);
-    },
-    smiley: resolve => {
-      require(["@/3d/008-smiley/smiley"], resolve);
     }
   },
   watch: {
@@ -61,6 +55,14 @@ export default {
         {
           index: 2,
           name: "cat"
+        },
+        {
+          index: 3,
+          name: "particles"
+        },
+        {
+          index: 4,
+          name: "wave"
         }
       ],
       currentIndex: 0,

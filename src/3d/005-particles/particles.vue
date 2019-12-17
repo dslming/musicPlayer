@@ -1,44 +1,78 @@
 <template>
- <div id="canvasFather"></div>
+  <div class="particles">
+    <div id="canvasFather"></div>
+    <div class="name">
+      粒粒可见
+    </div>
+  </div>
 </template>
 
 <script>
-import musicVisual from '@/3d/MusicVisual'
-import common from './Common'
-window.lmthree = common
+import logic from "../dist/005-particles/logic/Logic";
 
-let that = null
+let that = null;
 
 export default {
-  mounted() {
-    that = this
-    let options = {
-      renderOption: {
-        canvasFatherId: 'canvasFather'
-      }
+  props: ["type"],
+  computed: {
+    playing() {
+      return logic.audio.subject.playing;
     }
-    common.init(options)
-    musicVisual.registAnimationFrame(this.loop,'particles')
   },
-  destroyed() {
-    musicVisual.stopAnimationFrame()
-    common.uninstall()
+  mounted() {
+    logic.initStage();
   },
-  methods: {
-    loop() {
-      common.rendering()
-      if(musicVisual.lmaudio.subject.playing) {
-        let degree = musicVisual.lmaudio.getAverageFrequency()
-        common.update(degree*15)
+  watch: {
+    type: {
+      handler: function(v) {
+        if (v == "min") {
+          logic.stage.resize();
+          if (logic.audio.subject.playing) {
+            logic.stage.run();
+          } else {
+            logic.stage.stop();
+          }
+        } else {
+          logic.stage.stop();
+        }
       }
+    },
+    playing: {
+      handler: function(v) {
+        if (v) {
+          logic.stage.run();
+        } else {
+          logic.stage.stop();
+        }
+      },
+      deep: true
     }
   }
-}
+};
 </script>
 
-<style>
-#canvasFather {
-  background-color: #000;
-      background-image: radial-gradient(ellipse farthest-corner at center top, #003466 0%, #000000 80%);
+<style lang="scss">
+.name {
+  font-family: "china";
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  font-size: 40px;
+  color: #ddd;
+}
+.particles {
+  width: 100%;
+  height: 100%;
+  #canvasFather {
+    width: 100%;
+    height: 100%;
+
+    background-color: #000;
+    background-image: radial-gradient(
+      ellipse farthest-corner at center top,
+      #003466 0%,
+      #000000 80%
+    );
+  }
 }
 </style>
