@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     prevTrack() {
+      this.playerMode.audio.subject.isReadyPlay = false;
       this.playerMode.setData({
         transitionName: "scale-in"
       });
@@ -117,6 +118,7 @@ export default {
       this.playerMode.resetPlayer();
     },
     nextTrack() {
+      this.playerMode.audio.subject.isReadyPlay = false;
       this.playerMode.setData({
         transitionName: "scale-out"
       });

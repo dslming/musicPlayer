@@ -1,15 +1,18 @@
 <template>
   <div class="visiual" v-show="isShow">
+    <tool @changeValue="handleChange" />
     <component v-bind:is="currentComponent" :type="type"></component>
   </div>
 </template>
 
 <script>
-// import musicVisual from "@/3d/MusicVisual";
+import Tool from "./tool/tool";
+import LMAudio from "@/3d/dist/PlayerAudio/PlayerAudio";
 
 export default {
   props: ["type"],
   components: {
+    Tool,
     universe: resolve => {
       require(["@/3d/001-universe/universe"], resolve);
     },
@@ -49,10 +52,42 @@ export default {
   data() {
     return {
       isShow: false,
+      list: [
+        {
+          index: 0,
+          name: "wind"
+        },
+        {
+          index: 1,
+          name: "universe"
+        }
+      ],
+      currentIndex: 0,
       currentComponent: "wind"
     };
   },
-  methods: {},
+  methods: {
+    handleChange(type) {
+      if (type == "next") {
+        if (this.currentIndex < this.list.length - 1) {
+          this.currentIndex++;
+        } else {
+          this.currentIndex = 0;
+        }
+      }
+      if (type == "pre") {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+        } else {
+          this.currentIndex = this.list.length - 1;
+        }
+      }
+      this.currentComponent = this.list[this.currentIndex].name;
+      setTimeout(() => {
+        LMAudio.play();
+      }, 1000);
+    }
+  },
   mounted() {}
 };
 </script>

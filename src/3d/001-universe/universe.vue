@@ -1,6 +1,9 @@
 <template>
   <div class="box">
     <div id="canvasFather"></div>
+    <div class="name">
+      浩瀚宇宙
+    </div>
   </div>
 </template>
 
@@ -79,6 +82,15 @@ export default {
 </script>
 
 <style lang="scss">
+.name {
+  font-family: "china";
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  font-size: 40px;
+  color: #ddd;
+}
+
 .box {
   width: 100%;
   height: 100%;
