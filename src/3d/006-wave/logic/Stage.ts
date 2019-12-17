@@ -79,7 +79,7 @@ export default class Stage {
 
   private initCamera() {
     this.camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 1000)
-    this.camera.position.set(49, 100, -77);
+    this.camera.position.set(49, 50, -77);
     // this.camera.rotation.set(-2, 0, 2.5)
     this.camera.name = 'camera'
     this.scene.add(this.camera);

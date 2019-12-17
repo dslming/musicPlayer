@@ -16,9 +16,9 @@ class Wave {
   constructor() {
     this.box = {
       size: 1,
-      height: 5,
+      height: 10,
     }
-    this.gridSize = 20; // box数量= this.gridSize * this.gridSize
+    this.gridSize = 10; // box数量= this.gridSize * this.gridSize
     this.col = this.gridSize
     this.row = this.gridSize;
     this.boxes = [];
