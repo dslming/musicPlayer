@@ -40,7 +40,7 @@ const deepUniforms = {
     uPowY: new THREE.Uniform(new THREE.Vector2(20, 2))
 };
 let nsin = (val) => Math.sin(val) * 0.5 + 0.5;
-let mountainDistortion = {
+export let mountainDistortion = {
     uniforms: mountainUniforms,
     getDistortion: `
 
@@ -76,7 +76,7 @@ let mountainDistortion = {
         return distortion.multiply(lookAtAmp).add(lookAtOffset);
     }
 };
-let xyDistortion = {
+export let xyDistortion = {
     uniforms: xyUniforms,
     getDistortion: `
     uniform vec2 uFreq;
@@ -108,7 +108,7 @@ let xyDistortion = {
         return distortion.multiply(lookAtAmp).add(lookAtOffset);
     }
 };
-export let LongRaceDistortion = {
+export const LongRaceDistortion = {
     uniforms: LongRaceUniforms,
     getDistortion: `
 
@@ -139,7 +139,7 @@ export let LongRaceDistortion = {
         return distortion.multiply(lookAtAmp).add(lookAtOffset);
     }
 };
-const turbulentDistortion = {
+export const turbulentDistortion = {
     uniforms: turbulentUniforms,
     getDistortion: `
         uniform vec4 uFreq;
@@ -188,7 +188,7 @@ const turbulentDistortion = {
         return distortion.multiply(lookAtAmp).add(lookAtOffset);
     }
 };
-const turbulentDistortionStill = {
+export const turbulentDistortionStill = {
     uniforms: turbulentUniforms,
     getDistortion: `
         uniform vec4 uFreq;
@@ -223,7 +223,7 @@ const turbulentDistortionStill = {
         }
     `
 };
-const deepDistortion = {
+export const deepDistortion = {
     uniforms: deepUniforms,
     getDistortion: `
         uniform vec4 uFreq;
@@ -268,7 +268,7 @@ const deepDistortion = {
         return distortion.multiply(lookAtAmp).add(lookAtOffset);
     }
 };
-const deepDistortionStill = {
+export const deepDistortionStill = {
     uniforms: deepUniforms,
     getDistortion: `
         uniform vec4 uFreq;
@@ -301,42 +301,3 @@ const deepDistortionStill = {
         }
     `
 };
-/**
-
-    let tempUniforms ={};
-    LongRacetempDistortion = {
-        uniforms: tempUniforms,
-        getDistortion: `
-
-                #define PI 3.14159265358979
-
-                vec3 getDistortion(float progress){
-
-                        float movementProgressFix = 0.02;
-                        return vec3(
-                            sin(progress * PI * 4.),
-                            0.,
-                            0.
-                        );
-                    }
-        `   ,
-        getJS:  (progress,time)=>{
-            let movementProgressFix = 0.02;
-
-            // Uniforms
-
-            let distortion =  new THREE.Vector3(
-                Math.sin(progress * Math.PI * 4.),
-               0.,
-                0.
-            );
-
-            let lookAtAmp = new THREE.Vector3(0.,0.,0.);
-            let lookAtOffset = new THREE.Vector3(0.,0.,0.);
-            return distortion.multiply(lookAtAmp).add(lookAtOffset);
-        }
-
-    }
-
-
- */

@@ -1,35 +1,27 @@
 // import Stage from './Stage'
 import audio from '../../PlayerAudio/PlayerAudio';
-import { App } from './InfiniteLights';
-import { LongRaceDistortion } from './Distortions';
-// import Wave from './Wave'
+import { App } from './App';
+import { mountainDistortion } from './Distortions';
 let degree = 0;
 class Logic {
-    // private way!: Wave
     constructor() {
         this.audio = audio;
     }
     initStage() {
-        // this.wave = new Wave()
-        // this.stage = new Stage("#canvasFather")
         this.init();
         this.stage.rigister(() => {
-            // console.error(degree);
             degree += audio.getAverageFrequency() * 0.0003;
             this.stage.updataDelta(degree);
-            // this.wave.drawWave(degree)
         });
-        // this.wave.addStageObjects(this.stage.scene)
     }
     init() {
-        // const container = document.getElementById('app');
         const container = document.querySelector("#canvasFather");
         const options = {
             onSpeedUp: (ev) => {
             },
             onSlowDown: (ev) => {
             },
-            distortion: LongRaceDistortion,
+            distortion: mountainDistortion,
             length: 400,
             roadWidth: 10,
             islandWidth: 5,

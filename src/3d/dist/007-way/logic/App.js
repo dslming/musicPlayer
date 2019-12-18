@@ -18,7 +18,6 @@ export class App {
         this.assets = {};
         this.delta = 0;
         that = this;
-        // Init ThreeJS Basics
         this.options = options;
         if (this.options.distortion == null) {
             this.options.distortion = {
@@ -67,6 +66,8 @@ export class App {
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
     }
+    stage() {
+    }
     initPasses() {
         this.renderPass = new POSTPROCESSING.RenderPass(this.scene, this.camera);
         this.bloomPass = new POSTPROCESSING.EffectPass(this.camera, new POSTPROCESSING.BloomEffect({
@@ -82,42 +83,6 @@ export class App {
         this.composer.addPass(this.renderPass);
         this.composer.addPass(this.bloomPass);
         this.composer.addPass(smaaPass);
-    }
-    loadAssets() {
-        const assets = this.assets;
-        return new Promise((resolve, reject) => {
-            const manager = new THREE.LoadingManager(resolve);
-            const searchImage = new Image();
-            const areaImage = new Image();
-            assets.smaa = {};
-            searchImage.addEventListener("load", function () {
-                assets.smaa.search = this;
-                manager.itemEnd("smaa-search");
-            });
-            areaImage.addEventListener("load", function () {
-                assets.smaa.area = this;
-                manager.itemEnd("smaa-area");
-            });
-            manager.itemStart("smaa-search");
-            manager.itemStart("smaa-area");
-            searchImage.src = POSTPROCESSING.SMAAEffect.searchImageDataURL;
-            areaImage.src = POSTPROCESSING.SMAAEffect.areaImageDataURL;
-        });
-    }
-    init() {
-        this.initPasses();
-        const options = this.options;
-        this.road.init();
-        this.leftCarLights.init();
-        this.leftCarLights.mesh.position.setX(-options.roadWidth / 2 - options.islandWidth / 2);
-        this.rightCarLights.init();
-        this.rightCarLights.mesh.position.setX(options.roadWidth / 2 + options.islandWidth / 2);
-        this.leftSticks.init();
-        this.leftSticks.mesh.position.setX(-(options.roadWidth + options.islandWidth / 2));
-        this.container.addEventListener("mousedown", this.onMouseDown);
-        this.container.addEventListener("mouseup", this.onMouseUp);
-        this.container.addEventListener("mouseout", this.onMouseUp);
-        this.tick();
     }
     onMouseDown(ev) {
         if (this.options.onSpeedUp)
@@ -162,9 +127,6 @@ export class App {
     render(delta) {
         this.composer.render(delta);
     }
-    dispose() {
-        this.disposed = true;
-    }
     setSize(width, height, updateStyles) {
         this.composer.setSize(width, height, updateStyles);
     }
@@ -183,6 +145,42 @@ export class App {
         }
         ;
         requestAnimationFrame(this.tick);
+    }
+    loadAssets() {
+        const assets = this.assets;
+        return new Promise((resolve, reject) => {
+            const manager = new THREE.LoadingManager(resolve);
+            const searchImage = new Image();
+            const areaImage = new Image();
+            assets.smaa = {};
+            searchImage.addEventListener("load", function () {
+                assets.smaa.search = this;
+                manager.itemEnd("smaa-search");
+            });
+            areaImage.addEventListener("load", function () {
+                assets.smaa.area = this;
+                manager.itemEnd("smaa-area");
+            });
+            manager.itemStart("smaa-search");
+            manager.itemStart("smaa-area");
+            searchImage.src = POSTPROCESSING.SMAAEffect.searchImageDataURL;
+            areaImage.src = POSTPROCESSING.SMAAEffect.areaImageDataURL;
+        });
+    }
+    init() {
+        this.initPasses();
+        const options = this.options;
+        this.road.init();
+        this.leftCarLights.init();
+        this.leftCarLights.mesh.position.setX(-options.roadWidth / 2 - options.islandWidth / 2);
+        this.rightCarLights.init();
+        this.rightCarLights.mesh.position.setX(options.roadWidth / 2 + options.islandWidth / 2);
+        this.leftSticks.init();
+        this.leftSticks.mesh.position.setX(-(options.roadWidth + options.islandWidth / 2));
+        this.container.addEventListener("mousedown", this.onMouseDown);
+        this.container.addEventListener("mouseup", this.onMouseUp);
+        this.container.addEventListener("mouseout", this.onMouseUp);
+        this.tick();
     }
     resize() {
         // 获取新的大小
