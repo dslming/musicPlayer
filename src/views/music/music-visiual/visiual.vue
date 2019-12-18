@@ -49,15 +49,15 @@ export default {
       list: [
         {
           index: 0,
-          name: "cat"
+          name: "wind"
         },
         {
           index: 1,
-          name: "universe"
+          name: "cat"
         },
         {
           index: 2,
-          name: "wind"
+          name: "universe"
         },
         {
           index: 3,
@@ -94,7 +94,9 @@ export default {
       }
       this.currentComponent = this.list[this.currentIndex].name;
       setTimeout(() => {
-        LMAudio.play();
+        if (LMAudio.subject.playing) {
+          LMAudio.play();
+        }
       }, 1000);
     }
   },

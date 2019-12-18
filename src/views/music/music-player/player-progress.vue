@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     clickProgress(e) {
-      this.isTimerPlaying = true;
       this.audio.pause();
       this.updateBar(e.pageX);
     }

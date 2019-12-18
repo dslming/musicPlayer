@@ -53,11 +53,10 @@ export default {
 
 <style lang="scss">
 .name {
-  font-family: "china";
   position: absolute;
   bottom: 40px;
   left: 30px;
-  font-size: 40px;
+  font-size: 20px;
   color: #ddd;
 }
 .particles {

@@ -54,11 +54,10 @@ export default {
 
 <style lang="scss">
 .name {
-  font-family: "china";
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 40px;
+  font-size: 20px;
   color: rgb(218, 101, 55);
 }
 .way {

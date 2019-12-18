@@ -5,13 +5,6 @@
 </template>
 
 <style lang="scss">
-@font-face {
-  font-family: "china"; //重命名字体名
-  src: url("./f.ttf"); //引入字体
-  font-weight: normal;
-  font-style: normal;
-}
-
 * {
   padding: 0;
   margin: 0;

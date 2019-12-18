@@ -43,11 +43,10 @@ export default {
 
 <style lang='scss' scoped>
 .name {
-  font-family: "china";
   position: absolute;
   bottom: 40px;
   left: 30px;
-  font-size: 60px;
+  font-size: 20px;
   color: #000;
 }
 
