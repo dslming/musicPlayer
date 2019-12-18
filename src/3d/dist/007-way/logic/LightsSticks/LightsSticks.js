@@ -2,6 +2,7 @@ import { random, pickRandom } from '../Tool';
 import { sideSticksVertex } from './sideSticksVertex';
 import { sideSticksFragment } from './sideSticksFragment';
 const THREE = window.THREE;
+// 灯柱子
 export class LightsSticks {
     constructor(webgl, options) {
         this.webgl = webgl;
@@ -54,6 +55,7 @@ export class LightsSticks {
         const mesh = new THREE.Mesh(instanced, material);
         // The object is behind the camera before the vertex shader
         mesh.frustumCulled = false;
+        mesh.name = "lightSticks";
         // mesh.position.y = options.lightStickHeight / 2;
         this.webgl.scene.add(mesh);
         this.mesh = mesh;

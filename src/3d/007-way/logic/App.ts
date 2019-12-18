@@ -58,7 +58,6 @@ export class App {
     // Binds
     this.tick = this.tick.bind(this);
     this.init = this.init.bind(this);
-    this.setSize = this.setSize.bind(this);
   }
 
   private initStats() {
@@ -178,19 +177,11 @@ export class App {
     this.stats.update()
   }
 
-  private render(delta: any) {
-    this.composer.render(delta);
-  }
-
-  private setSize(width: any, height: any, updateStyles: any) {
-    this.composer.setSize(width, height, updateStyles);
-  }
-
   private tick() {
     if (this.disposed) {
-      this.render(0);
-      this.loopCB && this.loopCB()
+      this.composer.render();
       this.update(this.delta);
+      this.loopCB && this.loopCB()
     };
     requestAnimationFrame(this.tick);
   }
@@ -198,11 +189,12 @@ export class App {
   public loadAssets() {
     const assets = this.assets;
     return new Promise((resolve, reject) => {
+      assets.smaa = {};
       const manager = new THREE.LoadingManager(resolve);
 
       const searchImage = new Image();
       const areaImage = new Image();
-      assets.smaa = {};
+
       searchImage.addEventListener("load", function () {
         assets.smaa.search = this;
         manager.itemEnd("smaa-search");
@@ -212,6 +204,7 @@ export class App {
         assets.smaa.area = this;
         manager.itemEnd("smaa-area");
       });
+
       manager.itemStart("smaa-search");
       manager.itemStart("smaa-area");
 
@@ -245,26 +238,30 @@ export class App {
     // 获取新的大小
     let vpW = that.container.clientWidth
     let vpH = that.container.clientHeight
+
     // 设置场景
     that.renderer.domElement.width = vpW
     that.renderer.domElement.height = vpH
-    that.renderer.setSize(that.container.clientWidth, that.container.clientHeight);
+    that.renderer.setSize(vpW, vpH);
+    this.composer.setSize(vpW, vpH, false);
 
     // 设置相机
     that.camera.aspect = vpW / vpH;
     that.camera.updateProjectionMatrix();
-    that.setSize(vpW, vpH, false)
   }
 
   public rigister(loopCB: Function) {
     this.loopCB = loopCB
   }
+
   public run() {
     this.disposed = true
   }
+
   public stop() {
     this.disposed = false
   }
+
   public updataDelta(v: number) {
     this.delta = v
   }

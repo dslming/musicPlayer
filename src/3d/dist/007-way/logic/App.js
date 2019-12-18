@@ -31,7 +31,6 @@ export class App {
         // Binds
         this.tick = this.tick.bind(this);
         this.init = this.init.bind(this);
-        this.setSize = this.setSize.bind(this);
     }
     initStats() {
         const Stats = window.Stats;
@@ -106,17 +105,11 @@ export class App {
         }
         this.stats.update();
     }
-    render(delta) {
-        this.composer.render(delta);
-    }
-    setSize(width, height, updateStyles) {
-        this.composer.setSize(width, height, updateStyles);
-    }
     tick() {
         if (this.disposed) {
-            this.render(0);
-            this.loopCB && this.loopCB();
+            this.composer.render();
             this.update(this.delta);
+            this.loopCB && this.loopCB();
         }
         ;
         requestAnimationFrame(this.tick);
@@ -124,10 +117,10 @@ export class App {
     loadAssets() {
         const assets = this.assets;
         return new Promise((resolve, reject) => {
+            assets.smaa = {};
             const manager = new THREE.LoadingManager(resolve);
             const searchImage = new Image();
             const areaImage = new Image();
-            assets.smaa = {};
             searchImage.addEventListener("load", function () {
                 assets.smaa.search = this;
                 manager.itemEnd("smaa-search");
@@ -161,11 +154,11 @@ export class App {
         // 设置场景
         that.renderer.domElement.width = vpW;
         that.renderer.domElement.height = vpH;
-        that.renderer.setSize(that.container.clientWidth, that.container.clientHeight);
+        that.renderer.setSize(vpW, vpH);
+        this.composer.setSize(vpW, vpH, false);
         // 设置相机
         that.camera.aspect = vpW / vpH;
         that.camera.updateProjectionMatrix();
-        that.setSize(vpW, vpH, false);
     }
     rigister(loopCB) {
         this.loopCB = loopCB;

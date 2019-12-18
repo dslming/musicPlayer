@@ -94,7 +94,7 @@ export class Road {
     mesh.position.x +=
       (this.options.islandWidth / 2 + options.roadWidth / 2) * side;
     this.webgl.scene.add(mesh);
-
+    mesh.name = "road"
     return mesh;
   }
   init() {

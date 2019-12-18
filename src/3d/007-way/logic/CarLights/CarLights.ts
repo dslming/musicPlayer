@@ -3,7 +3,7 @@ const THREE = (window as any).THREE
 import { random, pickRandom } from '../Tool'
 import { carLightsFragment } from './carLightsFragment'
 import { carLightsVertex } from './carLightsVertex'
-
+// 车灯
 export class CarLights {
   webgl: any;
   options: any;
@@ -123,6 +123,7 @@ export class CarLights {
     };
     let mesh = new THREE.Mesh(instanced, material);
     mesh.frustumCulled = false;
+    mesh.name = "carLights"
     this.webgl.scene.add(mesh);
     this.mesh = mesh;
   }
