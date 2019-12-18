@@ -27,6 +27,9 @@ export default {
     },
     wave: resolve => {
       require(["@/3d/006-wave/wave"], resolve);
+    },
+    way: resolve => {
+      require(["@/3d/007-way/way"], resolve);
     }
   },
   watch: {
@@ -46,7 +49,7 @@ export default {
       list: [
         {
           index: 0,
-          name: "wind"
+          name: "cat"
         },
         {
           index: 1,
@@ -54,7 +57,7 @@ export default {
         },
         {
           index: 2,
-          name: "cat"
+          name: "wind"
         },
         {
           index: 3,
@@ -63,6 +66,10 @@ export default {
         {
           index: 4,
           name: "wave"
+        },
+        {
+          index: 5,
+          name: "way"
         }
       ],
       currentIndex: 0,

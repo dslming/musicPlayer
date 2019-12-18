@@ -54,6 +54,7 @@ export default {
 .wind {
   width: 100%;
   height: 100%;
+  overflow: hidden;
   position: relative;
   .win1,
   .win2 {
@@ -62,13 +63,14 @@ export default {
 
   .win1 {
     top: -30px;
+    transform: scale(0.5);
     left: 60px;
   }
 
   .win2 {
-    top: 50px;
-    right: 70px;
-    transform: scale(1.5);
+    top: 20px;
+    right: 120px;
+    transform: scale(0.8);
   }
 }
 </style>

@@ -46,7 +46,7 @@ class Logic {
     this.stage = new Stage("#canvasFather")
     this.stage.rigister(() => {
       let degree = audio.getAverageFrequency()
-      this.loop(degree)
+      this.loop(degree * 2)
     })
     this.addStageObjects()
   }

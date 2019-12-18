@@ -28,14 +28,6 @@ export default {
           type: v
         });
       }
-    },
-    playerMode: {
-      handler: function(v) {
-        // musicPlayerMode.setData({
-        //   isPlaying: v.isTimerPlaying
-        // });
-      },
-      deep: true
     }
   },
   data() {
