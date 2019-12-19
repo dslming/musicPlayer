@@ -27,7 +27,8 @@ export default {
         this.playerMode.setData({
           type: v
         });
-      }
+      },
+      immediate: true
     }
   },
   data() {

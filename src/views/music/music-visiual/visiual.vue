@@ -40,7 +40,8 @@ export default {
         } else {
           this.isShow = false;
         }
-      }
+      },
+      immediate: true
     }
   },
   data() {
@@ -73,7 +74,7 @@ export default {
         }
       ],
       currentIndex: 0,
-      currentComponent: "wind"
+      currentComponent: "way"
     };
   },
   methods: {

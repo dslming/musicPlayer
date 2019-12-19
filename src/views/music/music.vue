@@ -14,7 +14,7 @@ export default {
   components: { MusicPlayer, MusicVisiual },
   data() {
     return {
-      type: "normal"
+      type: "min"
     };
   },
   methods: {

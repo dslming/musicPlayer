@@ -4,7 +4,7 @@ const POSTPROCESSING = (window as any).POSTPROCESSING
 const THREE = (window as any).THREE
 
 import { distortion_vertex } from './distortion_vertex'
-import { Road } from './Road/Road'
+import { Road } from './Road/Road1'
 import { CarLights } from './CarLights/CarLights'
 import { LightsSticks } from './LightsSticks/LightsSticks'
 import { lerp } from './Tool'
@@ -90,6 +90,7 @@ export class App {
     this.camera.position.z = -5;
     this.camera.position.y = 8;
     this.camera.position.x = 0;
+    this.camera.name = "camera"
 
     // 场景
     this.scene = new THREE.Scene();
@@ -106,7 +107,7 @@ export class App {
       fogFar: { type: "f", value: fog.far }
     };
     this.assets = {};
-
+    this.scene.add(this.camera)
     // 增加3d物体
     this.road = new Road(this, options);
     this.leftCarLights = new CarLights(
